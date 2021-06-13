@@ -95,10 +95,11 @@ public class ViewInput1 implements InputObserver {
                 c.next();
                 if(c.wasAdded()){
                     controller.addWordsTargets(c.getAddedSubList());
+
                 }
                 else if(c.wasRemoved()){
-                    controller.removeChips(c.getRemoved());
                     controller.removeWordsTargets(c.getRemoved());
+
                 }
             controller.setButtonVisibility();
             }
@@ -112,8 +113,8 @@ public class ViewInput1 implements InputObserver {
                     controller.addWordsAttributes(c.getAddedSubList());
                 }
                 else if(c.wasRemoved()){
-                    controller.removeChips(c.getRemoved());
                     controller.removeWordsAttributes(c.getRemoved());
+
                 }
                 controller.setButtonVisibility();
             }

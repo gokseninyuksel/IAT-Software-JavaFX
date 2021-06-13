@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class PlainController implements ControllerInput{
     //View for input 1
@@ -49,6 +50,7 @@ public class PlainController implements ControllerInput{
         this.viewInput2.newTarget_1();
         this.viewInput2.newAttribute_1();
         this.viewInput2.newAttribute_2();
+        this.viewInput2.init_labels();
         pane_view2 = this.viewInput2.init();
         this.stage = stage;
         scene = new Scene(pane, 600,400);
@@ -160,56 +162,29 @@ public class PlainController implements ControllerInput{
     }
 
     /**
-     * Removes the chips in the view 2 from specified attribute/target.
-     * @param removed
+     * Removes all the chips for view 2, and adds the ones that we have in the test word set.
+     *
      */
-    @Override
-    public void removeChips(List<? extends String> removed) {
-        Iterator<? extends String> iterator = removed.iterator();
-        //Get the removed list
-        System.out.println("Removing Chips");
-        while (iterator.hasNext()){
-            //The element in the removed list
-            String next = iterator.next();
-            System.out.println("Next is :" + next);
-            Iterator<String> attributes = testAttributes.getAttributes().iterator();
-            Iterator<String> targets = testTargets.getTargets().iterator();
-            search(next,attributes,true);
-            search(next,targets,false);
-        }
-    }
-
-    /**
-     * Search the targets if it constains the next string. With using the index, instantiate the chip view
-     * according to the place of the element.
-     * @param next Search String
-     * @param targets Search Space
-     * @param isAttribute If it is attribute true, false otherwise
-     */
-    private void search(String next, Iterator<String> targets, boolean isAttribute) {
-       int index = 1;
-        while(targets.hasNext()) {
-            //If we found the string
-            if (next.equals(targets.next())) {
-                //Check for the index, if index is 1, and it is attribute
-                if (index == 1 && isAttribute) {
-                    viewInput2.newAttribute_1();
-                    System.out.println("New attribute 1");
-                }
-                else if(index == 2 && isAttribute) {
-                    viewInput2.newAttribute_2();
-                    System.out.println("New attribute 2");
-                }
-                else if(index == 1){
-                    viewInput2.newTarget_1();
-                    System.out.println("New target 1");
-                }
-                else{
-                    viewInput2.newTarget_2();
-                    System.out.println("New target 2");
+    public void removeChips() {
+        //Remove the chips
+        this.viewInput2.newTarget_2();
+        this.viewInput2.newTarget_1();
+        this.viewInput2.newAttribute_1();
+        this.viewInput2.newAttribute_2();
+        //Search the targets
+        for(String target: testTargets.getTargets()){
+            if(viewInput2.getWords().containsKey(Optional.ofNullable(target))) {
+                if (testWords.getTestWords().containsKey(target)) {
+                    viewInput2.getWords().get(Optional.ofNullable(target)).getChips().addAll(testWords.getTestWords().get(target));
                 }
             }
-            index++;
+        }
+        //Search the attributes
+        for(String target: testAttributes.getAttributes()){
+            if(viewInput2.getWords().containsKey(Optional.ofNullable(target))) {
+                if(testWords.getTestWords().containsKey(target))
+                    viewInput2.getWords().get(Optional.ofNullable(target)).getChips().addAll(testWords.getTestWords().get(target));
+            }
         }
     }
 
@@ -222,7 +197,7 @@ public class PlainController implements ControllerInput{
         viewInput1.showAlert();
     }
     public void removeAndShow(String add){
-        JFXChipView<String> toRemoved = viewInput2.getWords().get(add);
+        JFXChipView<String> toRemoved = viewInput2.getWords().get(Optional.ofNullable(add));
         toRemoved.getChips().remove(toRemoved.getChips().size()-1);
         viewInput2.showAlert();
     }
@@ -302,7 +277,7 @@ public class PlainController implements ControllerInput{
             else
                 isThree = false;
         }
-        if(isThree){
+        if(isThree && testWords.getTestWords().values().size() == 4){
             viewInput2.next_visible();
         }
         else{
@@ -317,6 +292,7 @@ public class PlainController implements ControllerInput{
     public void next() {
         viewInput2.init_labels();
         pane_view2 = viewInput2.getPane();
+        removeChips();
         scene.setRoot(pane_view2);
     }
 

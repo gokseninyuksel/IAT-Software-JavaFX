@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Optional;
 
 public class ViewInput2 implements InputObserver{
     //Target 1 words view, this is a chip view.
@@ -74,7 +75,7 @@ public class ViewInput2 implements InputObserver{
 
     @Override
     public void update() {
-        System.out.println(testWords.getTestWords());
+        System.out.println("Test Words: " +  testWords.getTestWords());
     }
 
     /**
@@ -211,7 +212,7 @@ public class ViewInput2 implements InputObserver{
             @Override
             public void onChanged(Change<? extends String> c) {
                 c.next();
-                if(c.wasAdded()){
+                if(c.wasAdded() && c.getAddedSubList().size() == 1){
                     controller.addWordsTestWord(attributes_texts[0].getText(),c.getAddedSubList());
                 }
                 else if(c.wasRemoved()){
@@ -234,7 +235,7 @@ public class ViewInput2 implements InputObserver{
             @Override
             public void onChanged(Change<? extends String> c) {
                 c.next();
-                if(c.wasAdded()){
+                if(c.wasAdded() && c.getAddedSubList().size() == 1){
                     controller.addWordsTestWord(attributes_texts[1].getText(),c.getAddedSubList());
                 }
                 else if(c.wasRemoved()){
@@ -256,7 +257,7 @@ public class ViewInput2 implements InputObserver{
             @Override
             public void onChanged(Change<? extends String> c) {
                 c.next();
-                if(c.wasAdded()){
+                if(c.wasAdded() && c.getAddedSubList().size() == 1){
                     controller.addWordsTestWord(targets_texts[0].getText(),c.getAddedSubList());
                 }
                 else if(c.wasRemoved()){
@@ -277,7 +278,7 @@ public class ViewInput2 implements InputObserver{
             @Override
             public void onChanged(Change<? extends String> c) {
                 c.next();
-                if(c.wasAdded()){
+                if(c.wasAdded() && c.getAddedSubList().size() == 1){
                     controller.addWordsTestWord(targets_texts[1].getText(),c.getAddedSubList());
                 }
                 else if(c.wasRemoved()){
@@ -297,12 +298,20 @@ public class ViewInput2 implements InputObserver{
      * Getter for the each word view, stored in hashmap
      * @return
      */
-    public HashMap<String,JFXChipView<String>> getWords() {
-        HashMap<String, JFXChipView<String>> returns = new HashMap<>();
-        returns.put(targets_1_text.getText().split(" ")[2],target_1_words);
-        returns.put(targets_2_text.getText().split(" ")[2],target_2_words);
-        returns.put(attributes_1_text.getText().split(" ")[2],attribute_1_words);
-        returns.put(attributes_2_text.getText().split(" ")[2],attribute_2_words);
+    public HashMap<Optional<String>,JFXChipView<String>> getWords() {
+        HashMap<Optional<String>, JFXChipView<String>> returns = new HashMap<>();
+        if(targets_1_text.getText().length() >= 2) {
+            returns.put(Optional.ofNullable(targets_1_text.getText().split(" ")[2]), target_1_words);
+            returns.put(Optional.ofNullable(targets_2_text.getText().split(" ")[2]), target_2_words);
+            returns.put(Optional.ofNullable(attributes_1_text.getText().split(" ")[2]), attribute_1_words);
+            returns.put(Optional.ofNullable(attributes_2_text.getText().split(" ")[2]), attribute_2_words);
+        }
+        else{
+            returns.put(Optional.empty(), target_1_words);
+            returns.put(Optional.empty(), target_2_words);
+            returns.put(Optional.empty(), attribute_1_words);
+            returns.put(Optional.empty(), attribute_2_words);
+        }
         return returns;
     }
 
