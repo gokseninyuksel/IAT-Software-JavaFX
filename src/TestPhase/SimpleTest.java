@@ -1,6 +1,7 @@
 package TestPhase;
 
 public class SimpleTest extends Test{
+
     @Override
     public void render() {
 
@@ -9,5 +10,15 @@ public class SimpleTest extends Test{
     @Override
     public void setLabels() {
 
+    }
+
+    @Override
+    public String getClassify_left() {
+        return "";
+    }
+
+    @Override
+    public String getClassify_right() {
+        return "";
     }
 }

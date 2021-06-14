@@ -1,9 +1,8 @@
 package TestPhase;
 
 public class TestDecorator extends Test{
-    private final Test testDecorated;
-    public TestDecorator(Test testDecorated){
-        this.testDecorated = testDecorated;
+    Test testDecorated;
+    public TestDecorator(){
     }
     @Override
     public void render() {
@@ -13,5 +12,15 @@ public class TestDecorator extends Test{
     @Override
     public void setLabels() {
         this.testDecorated.setLabels();
+    }
+
+    @Override
+    public String getClassify_left() {
+        return testDecorated.getClassify_left();
+    }
+
+    @Override
+    public String getClassify_right() {
+        return testDecorated.getClassify_right();
     }
 }

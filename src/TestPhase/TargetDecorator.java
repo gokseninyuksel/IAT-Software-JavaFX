@@ -1,17 +1,19 @@
 package TestPhase;
 
 import InputPhase.TestAttributes;
+import InputPhase.TestTargets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class AttributeDecorator extends TestDecorator{
-    private TestAttributes testAttributes;
+public class TargetDecorator extends TestDecorator{
+    private TestTargets testTargets;
     private Scene primary;
-    public AttributeDecorator(Test testDecorated, Scene primary) {
+    public TargetDecorator(Test testDecorated, Scene primary) {
         this.testDecorated = testDecorated;
         this.primary = primary;
-        testAttributes = TestAttributes.getTestAttributesInstance();
+        testTargets = TestTargets.getTargetInstance();
     }
 
     @Override
@@ -26,9 +28,6 @@ public class AttributeDecorator extends TestDecorator{
         this.root.setRight(this.rightPane);
         this.root.setCenter(this.middlePane);
         this.primary.setRoot(this.root);
-        System.out.println(this.classify_right.getText());
-        System.out.println(this.classify_left.getText());
-
     }
 
     @Override
@@ -36,18 +35,16 @@ public class AttributeDecorator extends TestDecorator{
         testDecorated.setLabels();
 //        this.left_label_1 = new Text((String) testAttributes.getAttributes().toArray()[0]);
 //        this.right_label_1 = new Text((String) testAttributes.getAttributes().toArray()[0]);
-        this.left_label_1 = new Text("A");
-        this.right_label_1 = new Text("B");
-        this.left_label_1.setFill(Color.NAVY);
-        this.right_label_1.setFill(Color.NAVY);
+        this.left_label_2 = new Text("AA");
+        this.right_label_2 = new Text("BB");
+        this.left_label_2.setFill(Color.NAVY);
+        this.right_label_2.setFill(Color.NAVY);
     }
-
-    @Override
     public String getClassify_left() {
-        return testDecorated.getClassify_left() + " " + this.left_label_1.getText();
+        return testDecorated.getClassify_left() + " " + this.left_label_2.getText();
     }
     public String getClassify_right(){
-        return testDecorated.getClassify_right() + " " + this.right_label_1.getText();
+        return testDecorated.getClassify_right() + " " + this.right_label_2.getText();
 
     }
 }

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -46,8 +47,11 @@ public abstract class Test {
     protected GridPane rightPane;
     //Middle pane including the word, start and wrong
     protected GridPane middlePane;
-    //Scene where it is runnin
+    //Scene where the application is running
     protected Scene scene;
+    //Border pane to set the root of the scene
+    protected BorderPane root;
+
 
     /**
      * Constructor for the test, initialize the shared elements
@@ -62,7 +66,9 @@ public abstract class Test {
     public void init(){
         this.space = new Label("When you are feeling ready, press space");
         this.wrongly = new Label("You classified it wrongly");
+        this.randomWord = new Label();
         this.wrongly.setVisible(false);
+        this.randomWord.setVisible(false);
         this.leftPane = new GridPane();
         this.rightPane = new GridPane();
         this.middlePane = new GridPane();
@@ -71,7 +77,11 @@ public abstract class Test {
         this.middlePane.setAlignment(Pos.CENTER);
         this.middlePane.add(space,0,0);
         this.middlePane.add(wrongly,0,0);
+        this.middlePane.add(randomWord,0,0);
         this.randomWord = new Label();
+        this.root = new BorderPane();
+        this.classify_right = new Label("Press I to classify them as: ");
+        this.classify_left = new Label("Press E to classify them as: ");
         this.timeline = new Timeline(new KeyFrame(Duration.minutes(5),this::run));
     }
 
@@ -103,6 +113,7 @@ public abstract class Test {
      */
     private void selectWord() {
         this.randomWord.setText(this.randomWordStrategy.pool());
+        this.randomWord.setVisible(true);
         this.word_count--;
         this.timeline.pause();
     }
@@ -145,4 +156,6 @@ public abstract class Test {
     }
     public abstract void render();
     public abstract void setLabels();
+    public abstract String getClassify_left();
+    public abstract String getClassify_right();
 }
