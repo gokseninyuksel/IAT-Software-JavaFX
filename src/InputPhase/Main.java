@@ -16,10 +16,10 @@ public class Main extends Application {
         Scene scene = new Scene(new BorderPane(),600,400);
         primaryStage.setScene(scene);
         primaryStage.show();
-        Test test = new SimpleTest();
-        test = new AttributeDecorator(test,scene);
-        test = new TargetDecorator(test,scene);
-        test = new ReversedDecorator(test,scene);
+        Test test = new SimpleTest(scene);
+        test = new AttributeDecorator(test);
+        test = new TargetDecorator(test);
+        test = new ReversedDecorator(test);
         test.render();
         System.out.println(test.getClassify_left());
     }

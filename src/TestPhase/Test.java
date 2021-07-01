@@ -58,6 +58,7 @@ public abstract class Test {
      */
     public Test(){
         init();
+        //this.scene = //TODO get the scene from the application ;
     }
 
     /**
@@ -82,14 +83,12 @@ public abstract class Test {
         this.root = new BorderPane();
         this.classify_right = new Label("Press I to classify them as: ");
         this.classify_left = new Label("Press E to classify them as: ");
-        this.timeline = new Timeline(new KeyFrame(Duration.minutes(5),this::run));
     }
 
     /**
      * Run the program test for maximum of 5 minutes
-     * @param actionEvent
      */
-    public void run(ActionEvent actionEvent){
+    public void run(){
           scene.setOnKeyPressed(event -> {
               if(event.getCode().equals(KeyCode.SPACE)){
                controller.start();
@@ -158,4 +157,9 @@ public abstract class Test {
     public abstract void setLabels();
     public abstract String getClassify_left();
     public abstract String getClassify_right();
+    public void attach_data(){
+        // TODO attach the database instance to the test, and collect the data from the controller
+        //
+    }
+
 }

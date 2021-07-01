@@ -1,6 +1,14 @@
 package TestPhase;
 
+import javafx.scene.Scene;
+
 public class SimpleTest extends Test{
+
+    /**
+     * Constructor for the test, initialize the shared elements
+     */
+    public SimpleTest() {
+    }
 
     @Override
     public void render() {

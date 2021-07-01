@@ -10,9 +10,8 @@ import javafx.scene.text.Text;
 public class TargetDecorator extends TestDecorator{
     private TestTargets testTargets;
     private Scene primary;
-    public TargetDecorator(Test testDecorated, Scene primary) {
+    public TargetDecorator(Test testDecorated) {
         this.testDecorated = testDecorated;
-        this.primary = primary;
         testTargets = TestTargets.getTargetInstance();
     }
 
@@ -27,7 +26,7 @@ public class TargetDecorator extends TestDecorator{
         this.root.setLeft(this.leftPane);
         this.root.setRight(this.rightPane);
         this.root.setCenter(this.middlePane);
-        this.primary.setRoot(this.root);
+        this.scene.setRoot(this.root);
     }
 
     @Override

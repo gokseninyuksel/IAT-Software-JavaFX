@@ -6,10 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class ReversedDecorator extends TestDecorator{
-    private Scene primary;
-    public ReversedDecorator(Test testDecorated, Scene primary) {
+    private Test testDecorated;
+    public ReversedDecorator(Test testDecorated) {
         this.testDecorated = testDecorated;
-        this.primary = primary;
     }
 
     @Override
@@ -23,7 +22,7 @@ public class ReversedDecorator extends TestDecorator{
         this.root.setLeft(this.leftPane);
         this.root.setRight(this.rightPane);
         this.root.setCenter(this.middlePane);
-        this.primary.setRoot(this.root);
+        this.scene.setRoot(this.root);
     }
 
     @Override

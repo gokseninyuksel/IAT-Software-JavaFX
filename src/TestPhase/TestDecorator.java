@@ -1,9 +1,16 @@
 package TestPhase;
 
+import javafx.scene.Scene;
+
 public class TestDecorator extends Test{
     Test testDecorated;
-    public TestDecorator(){
+
+    /**
+     * Constructor for the test, initialize the shared elements
+     */
+    public TestDecorator() {
     }
+
     @Override
     public void render() {
         this.testDecorated.render();

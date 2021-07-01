@@ -7,10 +7,8 @@ import javafx.scene.text.Text;
 
 public class AttributeDecorator extends TestDecorator{
     private TestAttributes testAttributes;
-    private Scene primary;
-    public AttributeDecorator(Test testDecorated, Scene primary) {
+    public AttributeDecorator(Test testDecorated) {
         this.testDecorated = testDecorated;
-        this.primary = primary;
         testAttributes = TestAttributes.getTestAttributesInstance();
     }
 
@@ -25,7 +23,7 @@ public class AttributeDecorator extends TestDecorator{
         this.root.setLeft(this.leftPane);
         this.root.setRight(this.rightPane);
         this.root.setCenter(this.middlePane);
-        this.primary.setRoot(this.root);
+        this.scene.setRoot(this.root);
         System.out.println(this.classify_right.getText());
         System.out.println(this.classify_left.getText());
 
